@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clonar código') {
             steps {
-                git 'https://github.com/cuchox/TechFlow.git'
+                git 'https://github.com/cuchox/TechFlow.git', branch: 'main'
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Levantar contenedor') {
             steps {
-                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api'
+                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api || true'
             }
         }
     }
