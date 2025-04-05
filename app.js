@@ -1,21 +1,21 @@
-
 const express = require('express');
 const app = express();
-const data = require('./db.json');
+const fs = require('fs');
+const users = JSON.parse(fs.readFileSync('./db.json')).users;
 
 app.use(express.json());
 
 app.get('/users', (req, res) => {
-  res.status(200).json(data.users);
+  res.status(200).json(users);
 });
-
+// http://localhost:3000/users/1
 app.get('/users/:id', (req, res) => {
-  const user = data.users.find(u => u.id === parseInt(req.params.id, 10));
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({ error: 'User not found' });
-  }
+  const user = users.find(u => u.id === parseInt(req.params.id));
+  if (!user) return res.status(404).send('Usuario no encontrado');
+  res.status(200).json(user);
 });
 
-module.exports = app;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`✅ Servidor corriendo en puerto ${PORT}`));
+
+module.exports = app; // For testing

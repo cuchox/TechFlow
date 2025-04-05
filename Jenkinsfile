@@ -1,24 +1,35 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Instalar dependencias') {
-      steps {
-        bat 'npm install'
-      }
-    }
+    stages {
+        stage('Clonar código') {
+            steps {
+                git 'https://github.com/cuchox/TechFlow.git'
+            }
+        }
 
-    stage('Test y cobertura') {
-      steps {
-        bat 'npm test -- --coverage'
-      }
-    }
+        stage('Instalar dependencias') {
+            steps {
+                bat 'npm install'
+            }
+        }
 
-    stage('Docker Build & Run') {
-      steps {
-        bat 'docker build -t js-app .'
-        bat 'docker run -d -p 8083:3000 js-app'
-      }
+        stage('Ejecutar pruebas') {
+            steps {
+                bat 'npm test'
+            }
+        }
+
+        stage('Construir imagen Docker') {
+            steps {
+                bat 'docker build -t techflow-users-api .'
+            }
+        }
+
+        stage('Levantar contenedor') {
+            steps {
+                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api'
+            }
+        }
     }
-  }
 }

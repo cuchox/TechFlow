@@ -14,5 +14,16 @@
 
 ## Problemas encontrados
 
-- Inicialmente las pruebas fallaban porque el servidor no se iniciaba correctamente en el entorno de Jenkins. Se resolvió agregando un retraso después de iniciar el servidor.
-- Los reportes de Jest no se generaban en el formato esperado por Jenkins. Se solucionó instalando jest-junit y configurando el procesador de resultados.
+- El archivo app.js no tenía exportado el módulo para las pruebas.
+- Ajusté la ruta y lectura de db.json.
+- Corregí algunos nombres de variables en las pruebas.
+
+## Resultado Final
+
+Pipeline exitoso que:
+- Clona el repositorio.
+- Instala dependencias.
+- Ejecuta pruebas.
+- Genera imagen Docker.
+- Levanta contenedor.
+- Ejecuta aplicación.

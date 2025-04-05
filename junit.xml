@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="0.877">
+  <testsuite name="API Tests" errors="0" failures="0" skipped="0" timestamp="2025-04-05T16:10:02" time="0.808" tests="3">
+    <testcase classname="API Tests should return a list of users" name="API Tests should return a list of users" time="0.054">
+    </testcase>
+    <testcase classname="API Tests should return a single user" name="API Tests should return a single user" time="0.005">
+    </testcase>
+    <testcase classname="API Tests should return 404 for non-existent user" name="API Tests should return 404 for non-existent user" time="0.004">
+    </testcase>
+  </testsuite>
+</testsuites>
