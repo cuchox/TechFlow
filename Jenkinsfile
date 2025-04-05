@@ -28,9 +28,14 @@ pipeline {
 
         stage('Levantar contenedor') {
             steps {
-                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api || true'
+                bat '''
+                    docker stop techflow-api || true
+                    docker rm techflow-api || true
+                    docker run -d -p 3000:3000 --name techflow-api techflow-users-api
+                '''
             }
         }
+
 
         stage('Publicar imagen Docker') {
             steps {
