@@ -9,26 +9,45 @@ Running on Jenkins  in C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeli
 [Pipeline] checkout
 The recommended git tool is: git.exe
 No credentials specified
-Cloning the remote Git repository
-Cloning repository https://github.com/cuchox/TechFlow
- > git.exe init C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline # timeout=10
+ > git.exe rev-parse --resolve-git-dir C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/cuchox/TechFlow # timeout=10
 Fetching upstream changes from https://github.com/cuchox/TechFlow
  > git.exe --version # timeout=10
  > git --version # 'git version 2.48.1.windows.1'
  > git.exe fetch --tags --force --progress -- https://github.com/cuchox/TechFlow +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git.exe config remote.origin.url https://github.com/cuchox/TechFlow # timeout=10
- > git.exe config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
-Avoid second fetch
  > git.exe rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
-Checking out Revision ec452d208356e16e6b6f94b4eef2edbb114cc607 (refs/remotes/origin/main)
+Checking out Revision e4a7e5732c2dd5e20239d5a0b4013d2f764f8d72 (refs/remotes/origin/main)
  > git.exe config core.sparsecheckout # timeout=10
- > git.exe checkout -f ec452d208356e16e6b6f94b4eef2edbb114cc607 # timeout=10
-Commit message: "Commit inicial - Proyecto TechFlow"
-First time build. Skipping changelog.
+ > git.exe checkout -f e4a7e5732c2dd5e20239d5a0b4013d2f764f8d72 # timeout=10
+Commit message: "Commit Update"
+ > git.exe rev-list --no-walk 22338d6555ed3e90c44c007b5d88a2c2c93ccf18 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
 [Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clonar repositorio cÃ³digo)
+[Pipeline] git
+The recommended git tool is: git.exe
+No credentials specified
+ > git.exe rev-parse --resolve-git-dir C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/cuchox/TechFlow.git # timeout=10
+Fetching upstream changes from https://github.com/cuchox/TechFlow.git
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.48.1.windows.1'
+ > git.exe fetch --tags --force --progress -- https://github.com/cuchox/TechFlow.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
+Checking out Revision e4a7e5732c2dd5e20239d5a0b4013d2f764f8d72 (refs/remotes/origin/main)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f e4a7e5732c2dd5e20239d5a0b4013d2f764f8d72 # timeout=10
+ > git.exe branch -a -v --no-abbrev # timeout=10
+ > git.exe branch -D main # timeout=10
+ > git.exe checkout -b main e4a7e5732c2dd5e20239d5a0b4013d2f764f8d72 # timeout=10
+Commit message: "Commit Update"
+[Pipeline] }
+[Pipeline] // stage
 [Pipeline] stage
 [Pipeline] { (Instalar dependencias)
 [Pipeline] bat
@@ -44,94 +63,119 @@ found 0 vulnerabilities
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
+[Pipeline] { (Ejecutar pruebas)
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline>npm test 
+
+> ci_pipeline_project@1.0.0 test
+> jest
+
+PASS tests/app.test.js
+  API Tests
+    âˆš should return a list of users (40 ms)
+    âˆš should return a single user (6 ms)
+    âˆš should return 404 for non-existent user (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        1.543 s, estimated 2 s
+Ran all test suites.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
 [Pipeline] { (Test y cobertura)
 [Pipeline] bat
 
 C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline>npm test -- --coverage 
 
 > ci_pipeline_project@1.0.0 test
-> jest --testResultsProcessor=jest-junit --coverage
+> jest --coverage
 
 PASS tests/app.test.js
   API Tests
-    âˆš should return a list of users (54 ms)
+    âˆš should return a list of users (42 ms)
     âˆš should return a single user (6 ms)
+    âˆš should return 404 for non-existent user (5 ms)
 
 ----------|---------|----------|---------|---------|-------------------
 File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ----------|---------|----------|---------|---------|-------------------
-All files |    92.3 |       50 |     100 |   91.66 |                   
- app.js   |    92.3 |       50 |     100 |   91.66 | 17                
+All files |     100 |      100 |     100 |     100 |                   
+ app.js   |     100 |      100 |     100 |     100 |                   
 ----------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
-Tests:       2 passed, 2 total
+Tests:       3 passed, 3 total
 Snapshots:   0 total
-Time:        1.579 s
+Time:        1.284 s, estimated 2 s
 Ran all test suites.
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
-[Pipeline] { (Docker Build & Run)
+[Pipeline] { (Construir y correr imagen Docker)
 [Pipeline] bat
 
-C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline>docker build -t js-app . 
+C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline>docker build -t techflow-users-api . 
 #0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 135B 0.0s done
+#1 transferring dockerfile: 167B 0.0s done
 #1 DONE 0.0s
 
-#2 [internal] load metadata for docker.io/library/node:18
-#2 DONE 1.2s
+#2 [internal] load metadata for docker.io/library/node:18-alpine
+#2 DONE 1.3s
 
 #3 [internal] load .dockerignore
 #3 transferring context: 2B done
 #3 DONE 0.0s
 
-#4 [1/4] FROM docker.io/library/node:18@sha256:3c56248510700ddb4861bd478ea2ced828793fd5388a21adc5270cdbbf7b7919
-#4 resolve docker.io/library/node:18@sha256:3c56248510700ddb4861bd478ea2ced828793fd5388a21adc5270cdbbf7b7919 0.0s done
-#4 DONE 0.0s
+#4 [1/5] FROM docker.io/library/node:18-alpine@sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e
+#4 resolve docker.io/library/node:18-alpine@sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e 0.0s done
+#4 DONE 0.1s
 
 #5 [internal] load build context
-#5 transferring context: 34.44MB 4.0s done
-#5 DONE 4.0s
+#5 transferring context: 7.32MB 1.1s done
+#5 DONE 1.1s
 
-#6 [2/4] WORKDIR /usr/src/app
+#6 [2/5] WORKDIR /app
 #6 CACHED
 
-#7 [3/4] COPY . .
-#7 DONE 1.1s
+#7 [3/5] COPY package*.json ./
+#7 DONE 0.1s
 
-#8 [4/4] RUN npm install
-#8 2.033 
-#8 2.033 up to date, audited 360 packages in 1s
-#8 2.033 
-#8 2.033 48 packages are looking for funding
-#8 2.033   run `npm fund` for details
-#8 2.034 
-#8 2.034 found 0 vulnerabilities
-#8 2.037 npm notice
-#8 2.037 npm notice New major version of npm available! 10.8.2 -> 11.2.0
-#8 2.037 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
-#8 2.037 npm notice To update run: npm install -g npm@11.2.0
-#8 2.037 npm notice
-#8 DONE 2.1s
+#8 [4/5] RUN npm install
+#8 5.383 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#8 5.684 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#8 6.679 npm warn deprecated superagent@8.1.2: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net
+#8 7.543 
+#8 7.543 added 359 packages, and audited 360 packages in 7s
+#8 7.543 
+#8 7.543 48 packages are looking for funding
+#8 7.543   run `npm fund` for details
+#8 7.544 
+#8 7.544 found 0 vulnerabilities
+#8 7.546 npm notice
+#8 7.546 npm notice New major version of npm available! 10.8.2 -> 11.2.0
+#8 7.546 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.2.0
+#8 7.546 npm notice To update run: npm install -g npm@11.2.0
+#8 7.546 npm notice
+#8 DONE 7.8s
 
-#9 exporting to image
-#9 exporting layers
-#9 exporting layers 2.2s done
-#9 exporting manifest sha256:be1e575d7c1742432bcdba56c08407d39a5fa2716177d7a0aecd7cb7548c5e3e 0.0s done
-#9 exporting config sha256:e7de45bb7ffec3515d339b138c14172621d547026a46ae22047ed96572e86ff5 0.0s done
-#9 exporting attestation manifest sha256:3da794307d61d89abee7768a87750bc583b235ae9489cf16e69ab84a95fed283 0.0s done
-#9 exporting manifest list sha256:27e5a0de36b72b57656f4c9ede5929e5fce56b7acd64c24ca4de3745eefa62c3 0.0s done
-#9 naming to docker.io/library/js-app:latest done
-#9 unpacking to docker.io/library/js-app:latest
-#9 unpacking to docker.io/library/js-app:latest 1.6s done
-#9 DONE 3.9s
-[Pipeline] bat
+#9 [5/5] COPY . .
+#9 DONE 2.7s
 
-C:\ProgramData\Jenkins\.jenkins\workspace\TechFlow-Pipeline>docker run -d -p 8083:3000 js-app 
-6e6665758f57164c9e83732650556a4accf7b1524de7c288902c99fb33a212f9
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 2.2s done
+#10 exporting manifest sha256:9e630488dbb2bec288d5c296aabe614008791dfc7088cf209e29538a8d03da9c 0.0s done
+#10 exporting config sha256:7e9f68a13654610ee5d6505cac76b0ea941a09d4307471611173c7d03d979122 0.0s done
+#10 exporting attestation manifest sha256:7a4c60237326770d1290b54e54b04e11c74f93be636d93271a310472803b0058 0.0s done
+#10 exporting manifest list sha256:74dacb76c040ba90ca919c920ca38e71854e24c33c63d4b9b26557b4271e0ba0 0.0s done
+#10 naming to docker.io/library/techflow-users-api:latest done
+#10 unpacking to docker.io/library/techflow-users-api:latest
+#10 unpacking to docker.io/library/techflow-users-api:latest 2.8s done
+#10 DONE 5.2s
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] }
