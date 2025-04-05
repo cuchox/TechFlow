@@ -55,16 +55,20 @@ cd TechFlow
 ---
 ## Screenshots
 1. Captura de pantalla de localhost
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_localhost.jpg)
 ![image](../TechFlow/screenshots/Screenshots_localhost.jpg)
 
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_localhost-2.jpg)
 ![image](../TechFlow/screenshots/Screenshots_localhost-2.jpg)
 
 2. Captura de pantalla de Jenkins
 
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_Jenkins.jpg)
 ![image](../TechFlow/screenshots/Screenshots_Jenkins.jpg)
 
 3. Captura de pantalla de Pipeline Jenkins
 
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_Pipeline_Test.jpg)
 ![image](../TechFlow/screenshots/Screenshots_Pipeline_Test.jpg)
 
 4. Txt Resultado Pipeline Jenkins
@@ -75,5 +79,6 @@ cd TechFlow
 
 4. Captura de pantalla de Repositorio en Gibhub
 
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_Repositorio%20Gibhub.jpg)
 ![image](../TechFlow/screenshots/Screenshots_Repositorio%20Gibhub.jpg)
 
