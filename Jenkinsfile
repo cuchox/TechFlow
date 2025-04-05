@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clonar código') {
             steps {
-                git 'https://github.com/cuchox/TechFlow.git'
+                git branch: 'main', url: 'https://github.com/cuchox/TechFlow.git'
             }
         }
 
