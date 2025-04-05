@@ -28,7 +28,7 @@ pipeline {
 
         stage('Levantar contenedor') {
             steps {
-                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api'
+                bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api || true'
             }
         }
     }
