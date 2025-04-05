@@ -50,3 +50,30 @@ El pipeline implementado en Jenkins sigue los siguientes stages:
 ```bash
 git clone https://github.com/cuchox/TechFlow.git
 cd TechFlow
+
+```
+---
+## Screenshots
+1. Captura de pantalla de localhost
+![image](../TechFlow/screenshots/Screenshots_localhost.jpg)
+
+![image](../TechFlow/screenshots/Screenshots_localhost-2.jpg)
+
+2. Captura de pantalla de Jenkins
+
+![image](../TechFlow/screenshots/Screenshots_Jenkins.jpg)
+
+3. Captura de pantalla de Pipeline Jenkins
+
+![image](../TechFlow/screenshots/Screenshots_Pipeline_Test.jpg)
+
+4. Txt Resultado Pipeline Jenkins
+
+📂TechFlow/
+📂screenshots/
+📑1_test_jenkins.txt
+
+4. Captura de pantalla de Repositorio en Gibhub
+
+![image](../TechFlow/screenshots/Screenshots_Repositorio%20Gibhub.jpg)
+
