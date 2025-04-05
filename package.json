@@ -1,15 +1,13 @@
 {
   "name": "ci_pipeline_project",
-  "version": "1.0.0.1",
-  "description": "Proyecto de integración continua con Node.js",
+  "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "json-server --watch db.json --port 3000",
-    "test": "jest --coverage"
+    "start": "node app.js",
+    "test": "jest"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "json-server": "^16.5.0",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "jest": "^29.4.1",

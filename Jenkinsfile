@@ -29,10 +29,11 @@ pipeline {
 
         stage('Construir y correr imagen Docker') {
             steps {
-            bat 'docker build -t js-app .'
-            bat 'docker run -d -p 8083:3000 js-app'
+                bat 'docker build -t techflow-users-api .'
             }
-          }
+        }
+
+
 
     }
 }
