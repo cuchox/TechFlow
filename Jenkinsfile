@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clonar código') {
+        stage('Clonar repositorio código') {
             steps {
                 git branch: 'main', url: 'https://github.com/cuchox/TechFlow.git'
             }
@@ -20,29 +20,19 @@ pipeline {
             }
         }
 
-        stage('Construir imagen Docker') {
+        stage('Test y cobertura') {
             steps {
-                bat 'docker build -t techflow-users-api .'
-            }
-        }
-
-        stage('Levantar contenedor') {
-            steps {
-                bat '''
-                    bat 'docker rm -f techflow-container || echo "No existe contenedor previo"'
-                    docker run -d -p 3000:3000 --name techflow-api techflow-users-api
-                '''
+            bat 'npm test -- --coverage'
             }
         }
 
 
-        stage('Publicar imagen Docker') {
+        stage('Construir y correr imagen Docker') {
             steps {
-                bat 'docker login -u TU_USUARIO -p TU_PASSWORD'
-                bat 'docker tag techflow-users-api TU_USUARIO/techflow-users-api:latest'
-                bat 'docker push TU_USUARIO/techflow-users-api:latest'
+            bat 'docker build -t js-app .'
+            bat 'docker run -d -p 8083:3000 js-app'
             }
-        }
+          }
 
     }
 }
