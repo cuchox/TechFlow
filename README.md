@@ -68,7 +68,7 @@ cd TechFlow
 
 3. Captura de pantalla de Pipeline Jenkins
 
-![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_Pipeline_Test.jpg)
+![localhost](https://github.com/cuchox/TechFlow/blob/main/screenshots/Screenshots_Pipeline_test.jpg)
 
 
 4. Txt Resultado Pipeline Jenkins
