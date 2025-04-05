@@ -31,5 +31,14 @@ pipeline {
                 bat 'docker run -d -p 3000:3000 --name techflow-api techflow-users-api || true'
             }
         }
+
+        stage('Publicar imagen Docker') {
+            steps {
+                bat 'docker login -u TU_USUARIO -p TU_PASSWORD'
+                bat 'docker tag techflow-users-api TU_USUARIO/techflow-users-api:latest'
+                bat 'docker push TU_USUARIO/techflow-users-api:latest'
+            }
+        }
+
     }
 }
